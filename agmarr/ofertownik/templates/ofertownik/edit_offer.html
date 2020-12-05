@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+<form id="form" method="POST" class="addproducts">
+  {% csrf_token %}
+
+        <div class="">
+          add product/s
+        </div>
+      <p><input class="product_id" type="text" name="lang"></p>
+
+      <input data-id="{{offer.pk}}" data-href="{% url 'ofertownik:addproduct' %}" type="submit" name="submit" value="submit" class="product_submit">
+</form>
+
+
+
+{% for each in offer.products.all %}
+<form id="form" method="POST" class="addproduct" style="width:70%;">
+  <div class="form-group">
+    <label for="">Nazwa</label>
+    <input type="text" class="form-control title" value="{{each.name}}" >
+
+  </div>
+  <div class="form-group">
+    <label for="">Opis</label>
+    <textarea class="form-control description" name="name" rows="8" cols="80">{{each.description}}</textarea>
+
+  </div>
+  <div class="form-group">
+    <label for="">Cena</label>
+    <input type="text" class="form-control price" value="{{each.price}}" >
+
+  </div>
+  <div class="form-group">
+    <label for="">Materiał</label>
+    <input type="text" class="form-control material" value="{{each.material}}" >
+
+  </div>
+  <div class="form-group">
+    <label for="">Rozmiar</label>
+    <input type="text" class="form-control size" value="{{each.size}}" >
+
+  </div>
+  <!-- <div class="form-group">
+    <label for="">Obrazki</label>
+    <textarea class="form-control" name="name" rows="8" cols="80">{% for r in each.images.all %}{{r.adress}};
+{% endfor %}</textarea> -->
+
+  <!-- </div> -->
+<div class="images">
+  {% for r in each.images.all %}
+<div class="inline-image">
+
+
+  <img src="{{r.adress}}" class="smolimg" alt="">
+ <a href="{{r.adress}}" class="icon"><i class="fas fa-link"></i></a>
+  <a href="{% url 'ofertownik:deleteimage' pk=r.pk %}" class="icon"><i class="fas fa-trash"></i></a>
+</div>
+{% endfor %}
+</div>
+<div class="">
+
+
+<button class="deleteproduct" data-href="{% url 'ofertownik:deleteproduct' %}" type="button" data-id="{{each.pk}}" name="button">usuń</button>
+<button data-id="{{each.pk}}" data-href="{% url 'ofertownik:editproduct' %}" type="submit" name="submit"  class="editproduct">zapisz</button>
+
+</div>
+</form>
+
+<form id="form" method="POST" class="addproducts">
+  {% csrf_token %}
+
+        <div class="">
+          add image
+        </div>
+      <p><input class="image_adress" type="text" name="lang"></p>
+
+      <input data-id="{{each.pk}}" data-href="{% url 'ofertownik:addimage' pk=each.pk %}" type="submit" name="submit" value="submit" class="image_submit">
+</form>
+
+
+
+
+  {% endfor %}
+
+
+
+
+
+<script type="text/javascript">
+
+
+
+</script>
+{% endblock %}

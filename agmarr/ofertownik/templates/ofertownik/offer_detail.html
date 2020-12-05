@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+
+
+<a href="{% url "index" %}"><img src="http://pphagmar.pl/img/loggo2.png" class="logo" alt=""></a>
+<h2>  {{object.title}}</h2>
+
+
+<div class="chooser">
+    <div  id="chcards" class="choose"><i class="fas fa-th-large"></i></div>
+  <div  id="chtable" class="choose"><i class="fas fa-th-list"></i></div>
+
+</div>
+<div class="cards">
+
+
+{% for each in object.products.all %}
+
+<div class="card_{{each.pk}} card card0 " id="card__{{each.pk}}" style="width: 15rem;height:600px; vertical-align: top;display:inline-block;">
+  <img class="card-img-top" src="{{each.images.first.adress}}" alt="Card image cap">
+
+  <div class="card-body">
+    <h5 class="card-title">{{each.name}}</h5>
+
+    <p class="card-text first">{{each.description|truncatewords:25}}</p>
+    <p class="card-text"><b>Cena: </b>{{each.price}}</p>
+    <div  data-id="{{each.pk}}" class="btn btn-light more" style="  border: 1px solid rgba(0,0,0,.125);  border-radius: .25rem;">Więcej</div>
+  </div>
+</div>
+
+
+<div class="card--big big_{{each.pk}}" id="big_{{each.pk}}" >
+
+
+  <div id="carousel-{{each.pk}}" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      {% for r in each.images.all %}
+      <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}">
+        <img class="d-block " src="{{r.adress}}" alt="First slide">
+      </div>
+      {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#carousel-{{each.pk}}" role="button"  data-slide="prev">
+      <span class="carousel-control-prev-icon" style="color: rgba(160, 160, 160, 0.5);" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-{{each.pk}}" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" style="color: rgba(160, 160, 160, 0.5);" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+<div class="prod--base">
+  <div class="prod--title">
+  <h2> {{each.name}}</h2>
+  </div>
+  <div class="prod--description">
+    {{each.description}}
+  </div>
+</div>
+<div class="prod--rest">
+  <div class="att prod--price">
+    <span class="attlabel">Cena:</span> <span class="attrib">{{each.price}}</span>
+  </div>
+  <div class="att prod--material">
+    <span class="attlabel">Materiał:</span> <span class="attrib">{{each.material}}</span>
+  </div>
+  <div class="att prod--size">
+  <span class="attlabel">Rozmiar:</span>   <span class="attrib">{{each.size}}</span>
+  </div>
+  <div class="btn btn-light aless" data-id="{{each.pk}}" style="  border: 1px solid rgba(0,0,0,.125);  border-radius: .25rem;">Mniej
+  </div>
+</div>
+
+</div>
+{% endfor %}
+</div>
+<div class="tabela">
+  <table class="tableclass">
+{% for each in object.products.all %}
+    <tr class="tablemore " id="{{each.pk}}">
+      <td class="tabl "><img class="table-img " src="{{each.images.first.adress}}" alt="Card image cap"></td>
+      <td class="table-name tabl ">{{each.name}}</td>
+      <td class="table-descr tabl ">{{each.description|truncatewords:30}}</td>
+      <td class="tabl table-price">{{each.price}}</td>
+      <td class="tabl ">    <div  data-id="{{each.pk}}" class="moret btn-light" style="  border: 1px solid rgba(0,0,0,.125);  border-radius: .25rem;"><i class="fas fa-arrows-alt-v"></i></div></td>
+    </tr>
+    <tr>
+<td colspan="5">
+
+      <div class="card--big big_{{each.pk}}" id="big_table_{{each.pk}}" >
+
+
+        <div id="carousel-table-{{each.pk}}" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            {% for r in each.images.all %}
+            <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}">
+              <img class="d-block " src="{{r.adress}}" alt="First slide">
+            </div>
+            {% endfor %}
+          </div>
+          <a class="carousel-control-prev" href="#carousel-table-{{each.pk}}" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carousel-table-{{each.pk}}" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+
+      <div class="prod--base">
+        <div class="prod--title">
+        <h2> {{each.name}}</h2>
+        </div>
+        <div class="prod--description">
+          {{each.description}}
+        </div>
+      </div>
+      <div class="prod--rest">
+        <div class="att prod--price">
+          <span class="attlabel">Cena:</span> <span class="attrib">{{each.price}}</span>
+        </div>
+        <div class="att prod--material">
+          <span class="attlabel">Materiał:</span> <span class="attrib">{{each.material}}</span>
+        </div>
+        <div class="att prod--size">
+        <span class="attlabel">Rozmiar:</span>   <span class="attrib">{{each.size}}</span>
+        </div>
+        <div data-id="{{each.pk}}" class="btn btn-light tless" style="  border: 1px solid rgba(0,0,0,.125);  border-radius: .25rem;">Mniej
+        </div>
+      </div>
+</div>
+</td>
+    </tr>
+
+{% endfor %}
+  </table>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+</script>
+
+{% endblock %}

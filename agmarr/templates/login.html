@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block body_block %}
+<div class="form-container">
+
+
+<h1>Please log in</h1>
+<form action="{% url 'user_login' %}" method="post">
+  {% csrf_token %}
+  <label for="username"></label>
+<input type="text" name="username" placeholder="Login or Email adress" class="yolko" id="login-input">
+<p><label for="password"></label>
+<input type="password" name="password" class="yolko" placeholder="Password" id="password-input"></p>
+
+<input type="submit" name="" value="login" id="login-btn">
+
+</form>
+
+</div>
+
+
+<script>
+
+      $(document).ready(function(){
+         $("#guest").click(function(){
+            console.log("11");
+            document.getElementById('login-input').value = "1";
+            document.getElementById('password-input').value = "1";
+            document.getElementById("login-btn").click();
+
+
+
+    });
+  });
+
+
+
+
+
+
+</script>
+{% endblock %}

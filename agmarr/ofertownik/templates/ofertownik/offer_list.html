@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+{% for each in object_list %}
+<a href="{% url 'ofertownik:viewoffer' slug=each.slug %}">{{each.title}}</a><br>
+{% endfor %}
+{% endblock %}
