@@ -201,12 +201,12 @@ def royal_design(code):
         code = code.translate(str.maketrans("-/", "_."))
         for each in letters:
             url = 'https://www.par.com.pl/shared/zdjecia_katalog/full/'+ code + '_' +each + '.jpg'
-            r = session.get(url)
-            if r.status_code != 404:
+            r2 = session.get(url)
+            if r2.status_code != 404:
                 photo_list.append(url)
         photo_list = list(dict.fromkeys(photo_list))
 
-        return {'title':nazwa,'description':opis,'price':cena,'size':rozmiar,'material': material, 'photos':photo_list,'link':code}
+        return {'title':nazwa,'description':opis,'price':cena,'size':rozmiar,'material': material, 'photos':photo_list,'link':r.url}
 
 
     # obrazek https://www.par.com.pl/shared/zdjecia_katalog/full/R73437_13.jpg
