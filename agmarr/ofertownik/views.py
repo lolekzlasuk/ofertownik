@@ -56,7 +56,7 @@ def user_login(request):
         return render(request,'login.html',{})
 
 
-@login_required
+
 def create_offer(request):
     if request.method == 'POST':
         form = OfferForm(request.POST)
@@ -70,7 +70,7 @@ def create_offer(request):
         form = OfferForm()
     return render(request, 'ofertownik/offerform.html', {'form': form})
 
-@login_required
+
 def edit_offer(request,slug):
     context= {}
     offer = get_object_or_404(Offer,slug = slug)
@@ -83,7 +83,7 @@ def edit_offer(request,slug):
 
         return render(request,'ofertownik/edit_offer.html',context)
 
-@login_required
+
 def addproduct(request):
     if request.method == 'POST' and request.is_ajax():
         pk = json.loads(request.body).get('pk')
@@ -112,7 +112,7 @@ def addproduct(request):
                 )
         return HttpResponse("OK")
 
-@login_required
+
 def deleteproduct(request):
     if request.method == 'POST' and request.is_ajax():
         pk = json.loads(request.body).get('pk')
@@ -120,7 +120,7 @@ def deleteproduct(request):
         product.delete()
         return HttpResponse("OK")
 
-@login_required
+
 def editproduct(request):
     if request.method == 'POST' and request.is_ajax():
         pk = json.loads(request.body).get('pk')
@@ -135,7 +135,7 @@ def editproduct(request):
         product.save()
         return HttpResponse("OK")
 
-@login_required
+
 def deleteimage(request,pk):
     instance = get_object_or_404(ProductImage,pk=pk)
     offer = instance.product.offer
@@ -143,7 +143,7 @@ def deleteimage(request,pk):
     instance.delete()
     return redirect('ofertownik:editoffer',slug = slug)
 
-@login_required
+
 def addimage(request,pk):
     if request.method == 'POST' and request.is_ajax():
         product = get_object_or_404(Product,pk=pk)
