@@ -45,6 +45,7 @@ $(document).on('click','.product_submit',function (e) {
 
         success:(json) => {
           console.log('yaaay');
+          location.reload();
 
 
         },
@@ -117,7 +118,7 @@ $(document).on('click','.product_submit',function (e) {
 
            success:(json) => {
              console.log('yaaay');
-
+location.reload();
 
            },
            error : function(xhr,errmsg,err) {
@@ -151,7 +152,7 @@ $(document).on('click','.product_submit',function (e) {
 
               success:(json) => {
                 console.log('yaaay');
-
+location.reload();
 
               },
               error : function(xhr,errmsg,err) {
@@ -181,7 +182,7 @@ $(document).on('click','.product_submit',function (e) {
 
                     success:(json) => {
                       console.log('yaaay');
-
+location.reload();
 
                     },
                     error : function(xhr,errmsg,err) {
@@ -191,51 +192,4 @@ $(document).on('click','.product_submit',function (e) {
                });
 
 
-               $( document ).ready(function(){
-               $('.card--big').hide();
-               $('.card').show();
-                    $('.tabela').hide();
-                    $('.fa-th-large').css("border-bottom","2px solid black");
-               });
-
-                  $(document).on('click','.more',function (e) {
-                     var pk = $(this).attr("data-id");
-                     $(this).parents('.card').hide();
-                     $(".big_"+pk).show();
-                     document.getElementById("big_"+pk).scrollIntoView();
-                  });
-
-                  $(document).on('click','.aless',function (d) {
-                     var pk = $(this).attr("data-id");
-                   document.getElementById('card__'+pk).style.display = "inline-block";
-                   document.getElementById('big_'+pk).style.display = "none";
-                  });
-
-                  $(document).on('click','.moret',function (e) {
-                     var pk = $(this).attr("data-id");
-                     $(this).parents('tr').hide();
-                     $(".big_"+pk).show();
-
-                     document.getElementById("big_"+pk).scrollIntoView();
-                  });
-
-                  $(document).on('click','.tless',function (f) {
-                     var pk = $(this).attr("data-id");
-                   document.getElementById(pk).style.display = "table-row";
-                   document.getElementById('big_table_'+pk).style.display = "none";
-
-                  });
-                  $(document).on('click','#chcards',function () {
-                    $('.cards').show();
-                    $('.tabela').hide();
-                    $('.card--big').hide();
-               $('.fa-th-large').css("border-bottom","2px solid black");
-               $('.fa-th-list').css("border-bottom","none");
-                  });
-                  $(document).on('click','#chtable',function () {
-                    $('.cards').hide();
-                    $('.tabela').show();
-               $('.card--big').hide();
-               $('.fa-th-large').css("border-bottom","none");
-               $('.fa-th-list').css("border-bottom","2px solid black");
-                  });
+        

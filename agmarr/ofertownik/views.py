@@ -90,6 +90,7 @@ def addproduct(request):
         print(pk)
         offer = get_object_or_404(Offer,pk=pk)
         print(request.body)
+
         codelist = []
         codelist = json.loads(request.body).get('title').split(';')
         for e in codelist:
@@ -101,7 +102,9 @@ def addproduct(request):
                 description = prod['description'],
                 material = prod['material'],
                 size = prod['size'],
+                link = prod['link']
                 )
+            print(prod['link'])
             for r in prod['photos']:
                 imageinstance = ProductImage.objects.create(
                     product = instance,

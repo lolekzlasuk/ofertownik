@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
+<div class="links">
+
+<a class="btn btn-primary" href="{% url 'ofertownik:viewoffer' slug=offer.slug %}"target="_blank">Zobacz ofertę</a>
+<a class="btn btn-primary" href="{% url 'ofertownik:offerlist'  %}"target="_blank">lista ofert</a>
+
+
+
+</div>
 
 <form id="form" method="POST" class="addproducts">
   {% csrf_token %}
@@ -16,6 +24,7 @@
 
 
 {% for each in offer.products.all %}
+<a class="btn btn-primary" href="{{each.link}}" target="_blank">Link</a>
 <form id="form" method="POST" class="addproduct" style="width:70%;">
   <div class="form-group">
     <label for="">Nazwa</label>
@@ -62,8 +71,8 @@
 <div class="">
 
 
-<button class="deleteproduct" data-href="{% url 'ofertownik:deleteproduct' %}" type="button" data-id="{{each.pk}}" name="button">usuń</button>
-<button data-id="{{each.pk}}" data-href="{% url 'ofertownik:editproduct' %}" type="submit" name="submit"  class="editproduct">zapisz</button>
+<button class="deleteproduct" data-href="{% url 'ofertownik:deleteproduct' %}" type="button" data-id="{{each.pk}}" name="button">usuń produkt</button>
+<button data-id="{{each.pk}}" data-href="{% url 'ofertownik:editproduct' %}" type="submit" name="submit"  class="editproduct">zapisz produkt</button>
 
 </div>
 </form>
@@ -76,7 +85,7 @@
         </div>
       <p><input class="image_adress" type="text" name="lang"></p>
 
-      <input data-id="{{each.pk}}" data-href="{% url 'ofertownik:addimage' pk=each.pk %}" type="submit" name="submit" value="submit" class="image_submit">
+      <input data-id="{{each.pk}}" data-href="{% url 'ofertownik:addimage' pk=each.pk %}" type="submit" name="submit" value="Dodaj obrazek" class="image_submit">
 </form>
 
 

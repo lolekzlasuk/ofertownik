@@ -45,7 +45,8 @@ class Product(models.Model):
     size = models.CharField(max_length=500,blank=True)
     material = models.TextField(max_length=500,blank=True)
     description = models.TextField(max_length=500,blank=True)
-    
+    link = models.TextField(max_length=None,blank=True)
+
     def __str__(self):
         return self.name
 class ProductImage(models.Model):

@@ -12,9 +12,9 @@ def mainscrape(c):
         print(c)
         if len(c) == 10 and c[2] == '-':
             return(inspirion(c))
-        elif c[0] == 'V' or c[5] == '/' or c[-4] == '.':
+        elif c[0] == 'V' or (c[5] == '/' and len(c)<15) or( c[-4] == '.'and len(c)<15):
             return(axpol(c))
-        elif len(c) == 8 and c[-3] == '-':
+        elif len(c) == 8 and c[-3] == '-' or len(c) == 5:
             return(asgard(c))
         elif len(c) == 6 or c[:2] == 'IP':
             return(easy_gifts(c))
@@ -67,7 +67,7 @@ def inspirion(code):
             r = session.get(url)
             if r.status_code != 404:
                 photo_list.append(url)
-        return {'title':nazwa,'description':opis_txt,'price':cena,'size':rozmiar,'material': material, 'photos':photo_list}
+        return {'title':nazwa,'description':opis_txt,'price':cena,'size':rozmiar,'material': material, 'photos':photo_list,'link':r2.url}
 
 
 def axpol(code):
@@ -120,7 +120,7 @@ def axpol(code):
         #     if r.status_code != 404:
         #         photo_list.append(url)
         photo_list = list(dict.fromkeys(photo_list))
-        return {'title':nazwa,'description':opis,'price':cena,'size':rozmiar,'material': material, 'photos':photo_list}
+        return {'title':nazwa,'description':opis,'price':cena,'size':rozmiar,'material': material, 'photos':photo_list,'link':r2.url}
 
 
 
@@ -167,7 +167,7 @@ def asgard(code):
             if r.status_code != 404:
                 photo_list.append(url)
         photo_list = list(dict.fromkeys(photo_list))
-        return {'title':nazwa,'description':opis,'price':cena,'size':rozmiar,'material': material, 'photos':photo_list}
+        return {'title':nazwa,'description':opis,'price':cena,'size':rozmiar,'material': material, 'photos':photo_list,'link':r2.url}
 
 
     #obrazek https://asgard.gifts/png/product/09117-17.jpg          https://asgard.gifts/png/product/09117-17_[litera].jpg
@@ -206,7 +206,7 @@ def royal_design(code):
                 photo_list.append(url)
         photo_list = list(dict.fromkeys(photo_list))
 
-        return {'title':nazwa,'description':opis,'price':cena,'size':rozmiar,'material': material, 'photos':photo_list}
+        return {'title':nazwa,'description':opis,'price':cena,'size':rozmiar,'material': material, 'photos':photo_list,'link':r.url}
 
 
     # obrazek https://www.par.com.pl/shared/zdjecia_katalog/full/R73437_13.jpg
@@ -254,7 +254,7 @@ def easy_gifts(code):
             photo_list.append('https://www.easygifts.com.pl' +each.attrib['src'])
 
         photo_slice = int(len(photo_list)/2)
-        return {'title':nazwa,'description':opis,'price':cena,'size':rozmiar,'material': material, 'photos':photo_list[:photo_slice]}
+        return {'title':nazwa,'description':opis,'price':cena,'size':rozmiar,'material': material, 'photos':photo_list[:photo_slice],'link':r2.url}
 
 
 
