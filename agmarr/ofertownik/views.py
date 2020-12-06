@@ -26,7 +26,7 @@ class OfferDetailView(DetailView):
     model = Offer
 
 
-class OfferListView(LoginRequiredMixin,ListView):
+class OfferListView(ListView):
     model = Offer
     def get_queryset(self):
         return Offer.objects.order_by('-date_created')
