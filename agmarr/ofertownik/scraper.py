@@ -242,8 +242,14 @@ def easy_gifts(code):
             pass
         opis = opis.strip()
         # opis = tree.xpath('//*[@id="avl-desc"]/ul/li[1]/div')[0] ######################alsy try this
-        rozmiar = tree.xpath('//*[@class="value border bg"]/text()')[0]
-        material = tree.xpath('//*[@class="value border"]/text()')[0]
+        try:
+            rozmiar = tree.xpath('//*[@class="value border bg"]/text()')[0]
+        except:
+            pass
+        try:
+            material = tree.xpath('//*[@class="value border"]/text()')[0]
+        except:
+            pass
         photos = tree.xpath('//*[@class="photo"]')
         # subproduct_el = tree.xpath('//div[@id="product_subproducts"]')[0]
         # subproducts = etree.tostring(subproduct_el)
