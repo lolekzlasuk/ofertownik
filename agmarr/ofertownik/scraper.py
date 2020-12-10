@@ -62,14 +62,20 @@ def inspirion(code):
 
         photo_list = []
         url = 'https://inspirion.pl/sites/default/files/imagecache/product_full/'+ code + '_0.jpg'
-        photo_list.append('https://inspirion.pl/sites/default/files/imagecache/product_full/'+ code + '_0.jpg')
+        r = session.get(url)
         if r.status_code != 404:
             photo_list.append(url)
         url = 'https://inspirion.pl/sites/default/files/imagecache/product_full/'+ code + '.jpg'
+        r = session.get(url)
         if r.status_code != 404:
             photo_list.append(url)
         for each in letters:
             url = 'https://inspirion.pl/sites/default/files/imagecache/product_full/' + code + each + '_0.jpg'
+            r = session.get(url)
+            if r.status_code != 404:
+                photo_list.append(url)
+        for each in letters:
+            url = 'https://inspirion.pl/sites/default/files/imagecache/product_full/' + code + each + '.jpg'
             r = session.get(url)
             if r.status_code != 404:
                 photo_list.append(url)
