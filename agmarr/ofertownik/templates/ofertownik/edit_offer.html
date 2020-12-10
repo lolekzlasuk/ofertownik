@@ -16,7 +16,13 @@
         <div class="">
           add product/s
         </div>
-      <p><input class="product_id" type="text" name="lang"></p>
+      <p><input class="product_id" type="text" name="lang">        <select name="choice" class="catalogue">
+                <option value="1">Inspirion</option>
+                <option value="2">Axpol</option>
+                <option value="3">Asgard</option>
+                <option value="4">Easy Gifts</option>
+                <option value="5">Royal Design</option>
+              </select></p>
 
       <input data-id="{{offer.pk}}" data-href="{% url 'ofertownik:addproduct' %}" type="submit" name="submit" value="Dodaj produkt" class="product_submit">
 </form>

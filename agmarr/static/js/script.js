@@ -36,7 +36,7 @@ $(document).on('click','.product_submit',function (e) {
         type:'POST',
         url: urlss,
         data:JSON.stringify({
-
+            "choice":$(this).parent().find('.catalogue').val(),
             "title":$(this).parent().find('.product_id').val(),
             "pk": pk,
             // "csrfmiddlewaretoken": csrftoken,
@@ -190,6 +190,3 @@ location.reload();
                 }
                 });
                });
-
-
-        

@@ -84,17 +84,18 @@ def edit_offer(request,slug):
         return render(request,'ofertownik/edit_offer.html',context)
 
 
+
 def addproduct(request):
     if request.method == 'POST' and request.is_ajax():
         pk = json.loads(request.body).get('pk')
         print(pk)
         offer = get_object_or_404(Offer,pk=pk)
         print(request.body)
-
+        choice = json.loads(request.body).get('choice')
         codelist = []
         codelist = json.loads(request.body).get('title').split(';')
         for e in codelist:
-            prod = mainscrape(e)
+            prod = mainscrape(e,int(choice))
             instance = Product.objects.create(
                 offer = offer,
                 name = prod['title'],

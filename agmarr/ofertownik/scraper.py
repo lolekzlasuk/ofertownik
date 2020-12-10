@@ -1,3 +1,5 @@
+
+
 import requests, re
 from lxml import html, etree
 import json
@@ -7,21 +9,19 @@ import time
 alist = ['IP15047706','048603','38018-14','17705-02','V9656-06','P911.581','V4010/A-00','IP25057144','https://www.par.com.pl/products/r73434-21-dlugopis-bambusowy-evora-szary.html']
 link = '56-0701975'
 letters = 'abcdefghijklmnoqprstuvwxyz'
-def mainscrape(c):
+def mainscrape(c,t):
 
-        print(c)
-        if len(c) == 10 and c[2] == '-':
+        print(c,t)
+        if t == 1:
             return(inspirion(c))
-        elif c[0] == 'V' or (c[5] == '/' and len(c)<15) or( c[-4] == '.'and len(c)<15):
+        elif t == 2:
             return(axpol(c))
-        elif len(c) == 8 and c[-3] == '-' or len(c) == 5:
+        elif t == 3:
             return(asgard(c))
-        elif len(c) == 6 or c[:2] == 'IP':
+        elif t == 4:
             return(easy_gifts(c))
-        elif len(c) > 15:
+        elif t == 5:
             return(royal_design(c))
-        else:
-            print('not found ' + c)
 
 
 # inspirion 56-0701975 10
