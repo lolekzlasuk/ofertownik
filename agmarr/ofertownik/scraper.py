@@ -225,42 +225,62 @@ def easy_gifts(code):
         tree = r.text.encode('utf-8')
         tree = html.fromstring(r2.text)
         tree = etree.ElementTree(tree)
-        a = tree.xpath('/html/body/main/section[2]/div/div[2]/div/div/div/div/section/a[1]')[0]
+        a = tree.xpath('/html/body/main/section[2]/div/div[2]/div/div/div/div/section/h4/a')[0]
+
         cena = tree.xpath('/html/body/main/section[2]/div/div[2]/div/div/div/div/section/h6/text()')[0].strip()
+        print(a.text_content())
         proper_url = a.attrib['href']
-        r2 = session.get(proper_url,headers=headers)
+        if 'pendrive' in a.attrib['title'].lower():
+            img = tree.xpath('/html/body/main/section[2]/div/div[2]/div/div/div/div/img')[0].attrib['src']
+            photo_list = []
+            photo_list.append('https://www.easygifts.com.pl'+img)
+            r2 = session.get('https://www.easygifts.com.pl' + proper_url,headers=headers)
+            tree = html.fromstring(r2.text.encode('iso-8859-1'))
+            tree = etree.ElementTree(tree)
+            nazwa = tree.xpath('/html/body/main/section/div/div/div[2]/div/div[1]/div/div[1]/div/div[1]/section/p[1]/text()')[0]
+            opis = tree.xpath('/html/body/main/section/div/div/div[2]/div/div[1]/div/div[1]/div/div[1]/section/p[4]/text()')[0]
+            rozmiar = ""
+            try:
+                rozmiar = tree.xpath('/html/body/main/section/div/div/div[2]/div/div[1]/div/div[1]/div/div[1]/section/p[6]/text()')[0]
+            except:
+                pass
+            material = ""
+            return {'title':nazwa,'description':opis,'price':cena,'size':rozmiar,'material': material, 'photos':photo_list,'link':r2.url}
+        else:
 
-        tree = html.fromstring(r2.text.encode('iso-8859-1'))
-        tree = etree.ElementTree(tree)
-        nazwa = tree.xpath('/html/body/main[1]/div/section[2]/div[2]/header/div/h3/text()')[0]
-        opis = ""
+            r2 = session.get(proper_url,headers=headers)
 
-        try:
-            opis = tree.xpath('//*[@id="avl-desc"]/ul/li[1]/div/p')[0].text_content()
-            opis = opis + tree.xpath('//*[@id="avl-desc"]/ul/li[1]/div')[0].text_content()
-        except:
-            pass
-        opis = opis.strip()
-        # opis = tree.xpath('//*[@id="avl-desc"]/ul/li[1]/div')[0] ######################alsy try this
-        try:
-            rozmiar = tree.xpath('//*[@class="value border bg"]/text()')[0]
-        except:
-            pass
-        try:
-            material = tree.xpath('//*[@class="value border"]/text()')[0]
-        except:
-            pass
-        photos = tree.xpath('//*[@class="photo"]')
-        # subproduct_el = tree.xpath('//div[@id="product_subproducts"]')[0]
-        # subproducts = etree.tostring(subproduct_el)
-        # subproduct_list = re.findall('[A-Z][0-9]{3,5}-[0-9]{1,3}', str(subproducts))
-        # subproduct_list = list(dict.fromkeys(subproduct_list))
-        photo_list = []
-        for each in photos:
-            photo_list.append('https://www.easygifts.com.pl' +each.attrib['src'])
+            tree = html.fromstring(r2.text.encode('iso-8859-1'))
+            tree = etree.ElementTree(tree)
+            nazwa = tree.xpath('/html/body/main[1]/div/section[2]/div[2]/header/div/h3/text()')[0]
+            opis = ""
 
-        photo_slice = int(len(photo_list)/2)
-        return {'title':nazwa,'description':opis,'price':cena,'size':rozmiar,'material': material, 'photos':photo_list[:photo_slice],'link':r2.url}
+            try:
+                opis = tree.xpath('//*[@id="avl-desc"]/ul/li[1]/div/p')[0].text_content()
+                opis = opis + tree.xpath('//*[@id="avl-desc"]/ul/li[1]/div')[0].text_content()
+            except:
+                pass
+            opis = opis.strip()
+            # opis = tree.xpath('//*[@id="avl-desc"]/ul/li[1]/div')[0] ######################alsy try this
+            try:
+                rozmiar = tree.xpath('//*[@class="value border bg"]/text()')[0]
+            except:
+                pass
+            try:
+                material = tree.xpath('//*[@class="value border"]/text()')[0]
+            except:
+                pass
+            photos = tree.xpath('//*[@class="photo"]')
+            # subproduct_el = tree.xpath('//div[@id="product_subproducts"]')[0]
+            # subproducts = etree.tostring(subproduct_el)
+            # subproduct_list = re.findall('[A-Z][0-9]{3,5}-[0-9]{1,3}', str(subproducts))
+            # subproduct_list = list(dict.fromkeys(subproduct_list))
+            photo_list = []
+            for each in photos:
+                photo_list.append('https://www.easygifts.com.pl' +each.attrib['src'])
+
+            photo_slice = int(len(photo_list)/2)
+            return {'title':nazwa,'description':opis,'price':cena,'size':rozmiar,'material': material, 'photos':photo_list[:photo_slice],'link':r2.url}
 
 
 
