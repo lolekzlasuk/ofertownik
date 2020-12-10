@@ -61,7 +61,13 @@ def inspirion(code):
         material = tree.xpath('//*[@id="product-additional"]/div[3]/div/div[3]/div/div/text()')[1].strip()
 
         photo_list = []
+        url = 'https://inspirion.pl/sites/default/files/imagecache/product_full/'+ code + '_0.jpg'
         photo_list.append('https://inspirion.pl/sites/default/files/imagecache/product_full/'+ code + '_0.jpg')
+        if r.status_code != 404:
+            photo_list.append(url)
+        url = 'https://inspirion.pl/sites/default/files/imagecache/product_full/'+ code + '.jpg'
+        if r.status_code != 404:
+            photo_list.append(url)
         for each in letters:
             url = 'https://inspirion.pl/sites/default/files/imagecache/product_full/' + code + each + '_0.jpg'
             r = session.get(url)
